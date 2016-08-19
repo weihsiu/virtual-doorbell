@@ -35,7 +35,7 @@ object ServiceMain {
       e.notification.close()
       e.waitUntil(
         self.clients.matchAll(ClientQueryOptions(`type` = ClientType.window)).toFuture.map(cs =>
-          cs.find(_.url == "http://localhost:8000/ringer.html").foreach(_.asInstanceOf[WindowClient].focus())
+          cs.find(_.url.contains("ringer.html")).foreach(_.asInstanceOf[WindowClient].focus())
         ).toJSPromise
       )
     })

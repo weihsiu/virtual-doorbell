@@ -2709,12 +2709,12 @@ function $h_sjsr_RuntimeString$() {
   /*<skip>*/
 }
 $h_sjsr_RuntimeString$.prototype = $c_sjsr_RuntimeString$.prototype;
-$c_sjsr_RuntimeString$.prototype.init___ = (function() {
-  return this
-});
 $c_sjsr_RuntimeString$.prototype.indexOf__T__I__I__I = (function(thiz, ch, fromIndex) {
   var str = this.fromCodePoint__p1__I__T(ch);
   return $uI(thiz.indexOf(str, fromIndex))
+});
+$c_sjsr_RuntimeString$.prototype.init___ = (function() {
+  return this
 });
 $c_sjsr_RuntimeString$.prototype.valueOf__O__T = (function(value) {
   return ((value === null) ? "null" : $objectToString(value))
@@ -2726,6 +2726,19 @@ $c_sjsr_RuntimeString$.prototype.lastIndexOf__T__I__I = (function(thiz, ch) {
 $c_sjsr_RuntimeString$.prototype.indexOf__T__I__I = (function(thiz, ch) {
   var str = this.fromCodePoint__p1__I__T(ch);
   return $uI(thiz.indexOf(str))
+});
+$c_sjsr_RuntimeString$.prototype.hashCode__T__I = (function(thiz) {
+  var res = 0;
+  var mul = 1;
+  var i = (((-1) + $uI(thiz.length)) | 0);
+  while ((i >= 0)) {
+    var jsx$1 = res;
+    var index = i;
+    res = ((jsx$1 + $imul((65535 & $uI(thiz.charCodeAt(index))), mul)) | 0);
+    mul = $imul(31, mul);
+    i = (((-1) + i) | 0)
+  };
+  return res
 });
 $c_sjsr_RuntimeString$.prototype.fromCodePoint__p1__I__T = (function(codePoint) {
   if ((((-65536) & codePoint) === 0)) {
@@ -2742,19 +2755,6 @@ $c_sjsr_RuntimeString$.prototype.fromCodePoint__p1__I__T = (function(codePoint) 
     var jsx$3 = jsx$4.fromCharCode.apply(jsx$4, array$1);
     return $as_T(jsx$3)
   }
-});
-$c_sjsr_RuntimeString$.prototype.hashCode__T__I = (function(thiz) {
-  var res = 0;
-  var mul = 1;
-  var i = (((-1) + $uI(thiz.length)) | 0);
-  while ((i >= 0)) {
-    var jsx$1 = res;
-    var index = i;
-    res = ((jsx$1 + $imul((65535 & $uI(thiz.charCodeAt(index))), mul)) | 0);
-    mul = $imul(31, mul);
-    i = (((-1) + i) | 0)
-  };
-  return res
 });
 var $d_sjsr_RuntimeString$ = new $TypeData().initClass({
   sjsr_RuntimeString$: 0
@@ -6304,7 +6304,8 @@ $c_Lvdb_service_ServiceMain$$anonfun$main$4$$anonfun$apply$1.prototype.apply__sj
     if ((i < len)) {
       var index = i;
       var arg1 = cs[index];
-      var jsx$1 = ($as_T(arg1.url) !== "http://localhost:8000/ringer.html")
+      var thiz = $as_T(arg1.url);
+      var jsx$1 = (!($uI(thiz.indexOf("ringer.html")) !== (-1)))
     } else {
       var jsx$1 = false
     };
@@ -6315,9 +6316,9 @@ $c_Lvdb_service_ServiceMain$$anonfun$main$4$$anonfun$apply$1.prototype.apply__sj
     }
   };
   var i$1 = i;
-  var this$2 = ((i$1 < $uI(cs.length)) ? new $c_s_Some().init___O(cs[i$1]) : $m_s_None$());
-  if ((!this$2.isEmpty__Z())) {
-    var arg1$1 = this$2.get__O();
+  var this$5 = ((i$1 < $uI(cs.length)) ? new $c_s_Some().init___O(cs[i$1]) : $m_s_None$());
+  if ((!this$5.isEmpty__Z())) {
+    var arg1$1 = this$5.get__O();
     arg1$1.focus()
   }
 });
