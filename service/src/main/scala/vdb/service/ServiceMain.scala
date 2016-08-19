@@ -1,14 +1,13 @@
 package vdb.service
 
 import org.scalajs.dom.Event
-import org.scalajs.dom.experimental.serviceworkers.{ClientQueryOptions, ClientType, ExtendableEvent, ServiceWorkerGlobalScope, WindowClient}
-import scala.scalajs.js
-import scala.scalajs.js.JSConverters._
-import scala.scalajs.js.Dynamic.global
-import scala.scalajs.js.annotation.JSExport
-import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
-import ServiceWorkers._
 import org.scalajs.dom.experimental.NotificationOptions
+import org.scalajs.dom.experimental.serviceworkers.{ClientType, ExtendableEvent, ServiceWorkerGlobalScope, WindowClient}
+import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
+import scala.scalajs.js.Dynamic.global
+import scala.scalajs.js.JSConverters._
+import scala.scalajs.js.annotation.JSExport
+import vdb.service.ServiceWorkers._
 
 /**
   * Created by walter

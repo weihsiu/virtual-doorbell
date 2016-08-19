@@ -11,6 +11,7 @@ import scala.scalajs.js.JSConverters._
 import scalatags.JsDom.all._
 import scala.scalajs.js.annotation.JSExport
 import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
+import scala.scalajs.js.Dynamic
 import scala.util.Try
 
 /**
@@ -21,6 +22,7 @@ object RingerMain {
   @JSExport
   def main(content: dom.Element): Unit = {
     val apiKey = "AIzaSyCGQ6g2-HCjdZ1ho5QxX4lCQIAUDIk5eBY"
+    val qrCode = div().render
     val url = textarea().render
     val container =
       div(`class` := "container")(
@@ -29,6 +31,8 @@ object RingerMain {
             div(`class` := "jumbotron")(
               h1("Virtual Ringer"),
               p("Share the following doorbell url with someone."),
+              qrCode,
+              br,
               url
             )
           )
@@ -37,7 +41,11 @@ object RingerMain {
     content.appendChild(container)
     registerService("service-fastopt.js")
         .flatMap(_.pushManager.subscribe(PushSubscriptionOptions(userVisibleOnly = true)).toFuture)
-        .foreach((s: PushSubscription) => url.textContent = makeUrl(apiKey, sid(s.endpoint)))
+        .foreach { (s: PushSubscription) =>
+          val u = makeUrl(apiKey, sid(s.endpoint))
+          Dynamic.newInstance(global.QRCode)(qrCode, u)
+          url.textContent = u
+        }
   }
   def registerService(url: String): Future[ServiceWorkerRegistration] =
     Future.fromTry(Try(dom.window.navigator.serviceWorker)).flatMap(_.register(url).toFuture)
